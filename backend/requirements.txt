@@ -1,0 +1,24 @@
+# 3body Backend - FastAPI + AI
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+sqlalchemy>=2.0.25
+aiosqlite>=0.19.0
+greenlet>=3.0.0
+python-multipart>=0.0.6
+sse-starlette>=1.8.0
+
+# LangChain + RAG
+langchain>=0.1.0
+langchain-community>=0.0.20
+langchain-text-splitters>=0.0.1
+langchain-huggingface>=0.0.1
+chromadb>=0.4.22
+sentence-transformers>=2.2.0
+
+# Optional: Ollama / OpenAI compatible
+httpx>=0.26.0
+
+# Project Zero — Sophon Audit UI (run from repo root: streamlit run app.py)
+streamlit>=1.28.0

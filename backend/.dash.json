@@ -1,0 +1,12 @@
+{
+  "name": "backend",
+  "desc": "基于本地大模型的文档检索与问答 / 门店数据 API",
+  "tags": [
+    "Python",
+    "FastAPI",
+    "Streamlit"
+  ],
+  "startCmd": "streamlit run app.py",
+  "port": "8501",
+  "status": "开发中"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "三体宇宙 · 智子审计",
+  "desc": "三体宇宙智子逻辑审计终端与档案馆",
+  "tags": [
+    "Python"
+  ],
+  "startCmd": "python app.py",
+  "port": "8000",
+  "status": "开发中"
+}

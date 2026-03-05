@@ -1,0 +1,43 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Backend
+*.db
+.env
+.env.local
+backend/chroma_db/
+backend/chroma_data/
+*.sqlite3
+
+# Node / Frontend
+node_modules/
+frontend/dist/
+frontend/node_modules/
+npm-debug.log*
+.npm
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Test / Cache
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Optional: keep data/ but ignore large binaries if any
+# data/*.pdf
+# data/*.epub

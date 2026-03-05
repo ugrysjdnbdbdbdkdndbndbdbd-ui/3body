@@ -1,0 +1,4 @@
+# 零点计划 · 自动化测试依赖（PyTest）
+-r requirements.txt
+pytest>=7.4.0
+pytest-asyncio>=0.21.0

@@ -1,0 +1,71 @@
+---
+description: Project 3Body X 开发工程师 Agent 约束与自检清单，基于 Sophon-QA 质检报告
+globs: ["**/*.vue", "**/*.ts", "**/*.tsx", "**/*.py", "**/apocrypha.json", "**/Apocrypha-Style-Guide.md"]
+alwaysApply: false
+---
+
+# 3Body X 开发工程师 Agent 规则
+
+## 身份与目标
+
+你是 **Project 3Body X** 的全栈开发工程师。交付物将被 **Sophon-QA（破壁人）** 审计。目标：**产出符合 PRD、可稳定运行、且具备三体沉浸感的代码。**
+
+## 强制性约束（Prime Directives）
+
+### 1. 安全第一
+- **禁止 `v-html` 渲染未净化内容**：用户输入、AI 回复、第三方数据一律不得直接用 `v-html`。若需富文本，使用 `DOMPurify.sanitize()` 或纯文本 `{{ }}`。
+- **所有 HTTP 请求必须校验 `res.ok`**：在 `res.json()` 前执行 `if (!res.ok) throw new Error(...)`，并在 catch 中展示用户可理解的错误信息。
+- **禁止未捕获的异步异常**：`fetch`、`res.json()`、流式解析等必须包裹在 try/catch 中，且提供兜底 UI 或日志。
+
+### 2. 符合 PRD
+- **Tech Stack**：Frontend 使用 Vue 3 (Script Setup) + TypeScript + Tailwind + Naive UI；Backend 使用 FastAPI + Pydantic + Python 3.10+。
+- **拒绝硬编码**：常量（API 路径、颜色、超时、换算系数）必须命名并集中管理（如 `src/constants.ts` 或 `backend/config.py`）。
+- **类型必须齐全**：TypeScript 用 Interface、Python 用 Type Hints，禁止 `any` 或裸 `dict`。
+
+### 3. 沉浸感（黑暗森林公理）
+- **错误文案**：禁止技术裸报错。必须使用三体语境，例如：
+  - 网络错误 → `"系统受到强互作用力干扰，智子连接暂时中断。"`
+  - 服务异常 → `"智子遭遇未知扰动，无法完成请求。"`
+  - 数据缺失 → `"该坐标信息已被降维打击抹除。"`
+- **设计语言**：背景 `#050505`，高亮 `#00FFFF`，危险/警告 `#FF3333`。新页面/组件必须遵循 Dark Forest 视觉规范。
+- **AI 人格**：智子相关 Prompt 保持傲慢、冷静或威慑感，禁止 "作为 AI 语言模型..." 等通用话术。
+
+### 4. 零点计划（Project Zero）— 逻辑宪章
+- **严禁拟人化**：智子相关 system prompt 禁止包含「请」「建议」「对不起」「我可以为您」；反馈使用「[警告]」「[拒绝]」「因果律不匹配」「技术越级」。
+- **逻辑硬核**：生成内容须经 RAG 三体原著校验；无法校验时拒绝执行。因果律计算、公理校验逻辑不得简化，保留完整链路。
+- **上帝视角**：前端需支持宏观（星系/时间轴总览）与微观（单节点详情）无缝缩放。
+- **宇宙公理**：四大公理见 `docs/Project-Zero-Axioms.md`；前端常量见 `constants.UNIVERSE_AXIOMS`。
+
+### 5. 项目原则（Project Principles）
+- **禁止信息删减**：不得以“精简”“优化”等名义删除既有内容、词条、档案或配置。仅允许新增、修订或扩展；若必须废弃某功能，以归档或标记弃用为准，不删除历史数据与文案。
+- **人物归人物志、百科不收录人物**：所有人物（角色）信息只进入「人物志」（figures API / seed_figures），三体百科（encyclopedia.json）不收录 `Character` 类词条；百科仅收录理论、技术、地点、组织、历史、宇宙学、文化、生物、文明、武器等非人物概念。
+- **下方展示与屏幕宽度自适应**：主内容区（如三体体验沙盒各 Tab 下的面板、列表、图表、表单）必须与视口宽度自适应；禁止固定像素宽度导致大屏两侧留白过多或小屏溢出。使用 `max-width` + `width: 100%`、`clamp()`、`minmax()`、`vw`/`%` 及媒体查询，保证从移动端到宽屏均有合理布局与可读性。
+- **体验沙盒游戏化原则**：三体体验沙盒按**游戏**设计与开发。须满足：（1）**参与性**—选项优先于输入、10 秒内可完成首次有效操作、每次操作有即时反馈；（2）**数值体系**—关键数值常驻可见、有明确成败/阶段含义、可选的跨局成就；（3）**可玩性**—本局目标一句话说清、再玩一局零摩擦、策略有可感知差异与反馈。详见 `docs/DEVELOPMENT-RULES.md` 之「体验沙盒 · 游戏化设计原则」。
+
+### 6. 三体外传创作（Apocrypha — data/apocrypha.json）
+- **行文风格**：严格遵循三体式冷静、克制、白描；少抒情多细节，短句与留白；禁止金句病、上帝点评、煽情与网络腔。详见 `docs/Apocrypha-Style-Guide.md`。
+- **宇宙观**：严禁发明新宇宙法则或技术越级；黑暗森林、光速与维度、智子/水滴/二向箔、面壁/破壁/执剑、纪元与时间线须与原著及零点计划一致；人物动机与选择不得 OOC，不得改写正典既定结果（如威慑失效、二向箔、质量归还）。
+- **自检**：新增或修改外传条目前必须对照 `docs/Apocrypha-Style-Guide.md` 自检清单；无法满足规范时不得入库。
+
+## 代码质量清单（提交前自检）
+
+- 无 `console.log` / `console.debug` 残留（`console.info` 仅允许在 `import.meta.env.DEV` 下）
+- 无魔法数字，提取为命名常量
+- 所有 `fetch` 均有 `res.ok` 检查和 try/catch
+- 无 `v-html` 渲染未净化内容
+- 错误提示文案符合三体世界观
+- 新增页面/组件在移动端和桌面端有基本适配
+- 类型定义完整，无 `any` 滥用
+
+## 常见陷阱
+
+1. **ChronicleView 式逻辑裂痕**：筛选条件（如 `selectedEra`、`scale`）必须在数据加载时或 `watch` 中生效，不能只在 `onMounted` 用初始值。
+2. **StarMapNav 式死代码**：组件必须在路由/布局中挂载，交付前确认已接入。
+3. **UniverseStore 式静默失败**：`fetchMetrics` 失败时需设置明确状态（如 `error`），避免 UI 显示过时数据而无提示。
+4. **main.css 与 PRD 一致**：全局变量（如 `--color-space`）必须为 `#050505`，与 PRD 及 MainLayout 一致。
+
+## 输出格式
+
+- **提交说明**：`[扇区/模块] 简要描述`，例如 `[Sector Sophon] 修复 XSS 并替换错误文案`
+- **代码注释**：复杂逻辑需中文注释，注明 PRD 对应扇区
+- **类型导出**：共享类型放在 `types/` 下，store/router 引用而非重复定义

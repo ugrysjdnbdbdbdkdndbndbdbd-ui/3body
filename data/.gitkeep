@@ -1,0 +1,1 @@
+# 将三体原著 .txt 文件放于此目录，然后运行: python -m backend.rag.ingest
