@@ -1,113 +1,152 @@
-# 3body — 三体宇宙 AI 沉浸式社区
+# 3body — 三体体验沙盒
 
-基于《三体》宇宙观的 AI 社区：智子终端、人物志对话、编年史、宇宙广播、二向箔画廊、小宇宙等。
+> 基于《三体》宇宙观的沉浸式体验沙盒：与智子对话、与书中人物交谈、穿越编年史、漫步黑暗森林、归还小宇宙质量……
+
+## 项目简介
+
+**3body** 是一个以《三体》世界观为背景的 **体验沙盒** 项目：结合 AI 对话、编年史、人物志、宇宙广播、二向箔画廊、小宇宙等模块，让读者在本地或自托管环境中「进入」三体宇宙，与智子对话、与罗辑/叶文洁等核心人物进行符合人设的 AI 对话，并体验黑暗森林、面壁计划、红岸、三体摆等扇区互动。
+
+- **定位**：三体宇宙体验沙盒（非官方），适合书迷、二次创作与 AI 应用实践。
+- **技术**：Vue 3 + FastAPI + 可选 Ollama/LLM + 可选 RAG（原著检索增强）。
+- **开源**：MIT 许可证，可自由克隆、修改与部署。
+
+---
+
+## 功能模块（扇区）
+
+| 扇区 | 说明 |
+|------|------|
+| **智子终端** | 与智子流式对话，可选 RAG 检索三体原著后回答 |
+| **人物志** | 10 位核心人物档案；**与人物 AI 对话**（严格人设与三体世界观，多轮对话） |
+| **宇宙广播** | 威慑度、纪元、舰队距离等仪表盘，全站色调随威慑度变化 |
+| **编年史** | 时间轴、百科、外传，文明历程一览 |
+| **二向箔画廊** | 作品展示与收藏 |
+| **小宇宙 647** | 维生系统模拟、时间胶囊、质量归还 |
+| **黑暗森林** | 星图、点火/打击/输血等互动 |
+| **面壁计划** | 思想钢印、面壁/破壁对话 |
+| **红岸控制台** | 信号与广播 |
+| **三体摆** | 环境站、单摆、脱水控制台 |
+| 其他扇区 | 阶梯计划、四维碎片、掩体世界、水滴、科学边界等 |
+
+---
 
 ## 技术栈
 
-- **前端**: Vue 3 (Script Setup) + TypeScript + Vite + TailwindCSS + Pinia + Vue Router + Naive UI
-- **后端**: Python FastAPI + Uvicorn + Pydantic + SQLAlchemy (SQLite)
-- **AI**: Ollama 兼容 API / 自定义 LLM；可选 LangChain + ChromaDB（三体原著 RAG）
+| 层级 | 技术 |
+|------|------|
+| 前端 | Vue 3 (Script Setup) + TypeScript + Vite + TailwindCSS + Pinia + Vue Router + Naive UI |
+| 后端 | Python FastAPI + Uvicorn + Pydantic + SQLAlchemy (SQLite) |
+| AI 对话 | Ollama 兼容 API / 自定义 LLM；可选 LangChain + ChromaDB（三体原著 RAG） |
 
-## 功能概览
-
-| 模块       | 说明 |
-|------------|------|
-| 智子终端   | RAG 检索 + 流式对话 |
-| 人物志     | 核心人物档案 + **与人物 AI 对话**（人设与三体世界观约束） |
-| 宇宙广播   | 威慑度、纪元、舰队距离等仪表盘 |
-| 编年史     | 时间轴、百科、外传 |
-| 二向箔画廊 | 作品展示与收藏 |
-| 小宇宙 647 | 维生系统、时间胶囊、质量归还 |
-| 黑暗森林 / 面壁计划 / 红岸 / 三体摆 等 | 各扇区互动 |
-
-## 项目结构（Monorepo）
-
-```
-3body/
-├── data/              # 三体原著 .txt，供 RAG 入库（可选）
-├── frontend/          # Vue 3 + Vite
-├── backend/           # FastAPI + RAG
-├── docs/              # 文档与封板报告
-└── README.md
-```
+---
 
 ## 快速开始
 
-### 后端
+### 环境要求
+
+- **Node.js** 18+（前端）
+- **Python** 3.9+（后端）
+- 可选： [Ollama](https://ollama.com)（本地 LLM，用于智子与人物对话）
+
+### 1. 克隆项目
 
 ```bash
+git clone https://github.com/ugrysjdnbdbdkdndbndbdbd-ui/3body.git
 cd 3body
+```
+
+### 2. 启动后端
+
+```bash
 python -m venv .venv
 source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r backend/requirements.txt
 uvicorn backend.main:app --host 127.0.0.1 --port 8000 --reload
 ```
 
-- API 文档: http://127.0.0.1:8000/docs  
-- 健康检查: http://127.0.0.1:8000/health  
+- API 文档：http://127.0.0.1:8000/docs  
+- 健康检查：http://127.0.0.1:8000/health  
 
-### 前端
+### 3. 启动前端
 
 ```bash
-cd 3body/frontend
+cd frontend
 npm install
 npm run dev
 ```
 
-访问地址以终端输出为准，默认 **http://localhost:5173**。若 5173 被占用，Vite 会使用 5174、5175 等。
+浏览器访问终端输出的地址，默认 **http://localhost:5173**。若 5173 被占用，Vite 会自动使用 5174、5175 等。
 
-### 生产 / 跨端口访问
+### 4. 可选：智子 / 人物对话（LLM）
 
-前端需能访问后端 API。开发时可用 Vite 代理（已配置 `/api` → `http://127.0.0.1:8000`）。  
-静态部署时设置环境变量：
+- **本地 Ollama**：安装并启动 Ollama，拉取模型（如 `deepseek-chat`）。后端默认连接 `http://localhost:11434`，无需额外配置。
+- **自定义 API**：在项目根或 `backend/` 下创建 `.env`，设置 `3BODY_LLM_BASE_URL`、`3BODY_LLM_MODEL`、`3BODY_LLM_API_KEY`（可选）。  
+  前端在「人物志 → 与 TA 对话」中可配置 API Key / Base URL / Model（默认使用本地 Ollama）。
 
-- `VITE_API_BASE=http://你的后端地址`（如 `http://127.0.0.1:8000`）
+### 5. 可选：RAG 知识库（三体原著）
 
-构建：`npm run build`，产出在 `frontend/dist/`。
-
-## 智子与人物对话（LLM）
-
-流式对话使用 **Ollama 兼容 API**。通用情况使用本地 Ollama，无需配置。
-
-### 本地 Ollama（默认）
-
-1. 安装并启动 [Ollama](https://ollama.com)，拉取模型（如 `deepseek-chat` 或 `llama2`）。
-2. 后端默认连接 `http://localhost:11434`，无需额外配置。
-
-### 自定义 / 云端 API
-
-在项目根目录创建 `backend/.env`，或设置环境变量（前缀 `3BODY_`）：
-
-| 变量 | 说明 | 默认 |
-|------|------|------|
-| `3BODY_LLM_BASE_URL` | LLM API 基址 | `http://localhost:11434` |
-| `3BODY_LLM_MODEL` | 模型名 | `deepseek-chat` |
-| `3BODY_LLM_API_KEY` | API Key（可选，云端时填写） | 空 |
-
-前端在「人物志 → 与 TA 对话 → API / Ollama 连接设置」中可覆盖 API Key、Base URL、Model（仅当次会话或持久化到本地）。
-
-### RAG 知识库（三体原著，可选）
-
-1. 将原著 `.txt` 放入项目根目录 **`data/`** 下。
+1. 将原著 `.txt` 放入项目根目录 **`data/`** 下。  
 2. 执行一次入库（会下载中文 embedding 模型，较慢）：
    ```bash
    source .venv/bin/activate
    python -m backend.rag.ingest
    ```
-3. 之后智子对话会先检索向量再结合原文回答。无 `data/` 或未入库时，RAG 在首次对话时懒加载并可能跳过。
+3. 之后智子对话会先检索原文再回答。未配置时 RAG 懒加载或跳过。
+
+---
+
+## 项目结构
+
+```
+3body/
+├── data/              # 三体原著 .txt、百科/外传 JSON（可选 RAG 数据源）
+├── frontend/          # Vue 3 + Vite 前端
+├── backend/           # FastAPI 后端、RAG、人物对话等 API
+├── docs/              # 文档与封板报告
+├── PRD/               # 产品需求文档
+├── CHANGELOG.md       # 版本变更
+└── README.md          # 本说明
+```
+
+---
+
+## 环境变量（后端）
+
+| 变量 | 说明 | 默认 |
+|------|------|------|
+| `3BODY_LLM_BASE_URL` | LLM API 基址 | `http://localhost:11434` |
+| `3BODY_LLM_MODEL` | 模型名 | `deepseek-chat` |
+| `3BODY_LLM_API_KEY` | API Key（云端时填写） | 空 |
+| `3BODY_DATABASE_URL` | 数据库连接 | `sqlite+aiosqlite:///3body.db` |
+
+示例见 `backend/.env.example`。
+
+---
+
+## 生产部署
+
+- **前端**：`cd frontend && npm run build`，产出在 `frontend/dist/`。部署时需设置 `VITE_API_BASE` 为后端地址（如 `https://api.example.com`），以便 API 请求正确转发。
+- **后端**：使用 Uvicorn 或 Gunicorn 挂载 `backend.main:app`，并配置反向代理与 HTTPS。
+
+---
 
 ## 设计系统
 
-- **背景**: #050505 / #000510 (Deep Space)
-- **主色**: #00FFFF (Cherenkov Blue)
-- **警示**: #FF3333 (Red Coast Red)
-- **字体**: 等宽数据、衬线叙事
+- **背景**：深空黑 `#050505` / `#000510`
+- **主色**：切伦科夫蓝 `#00FFFF`
+- **警示**：红岸红 `#FF3333`
+- **字体**：等宽数据展示，衬线叙事
 
-## 文档
+---
 
-- 封板报告与测试结论: `docs/RELEASE-1.0-FREEZE.md`
-- 版本变更: `CHANGELOG.md`
+## 文档与链接
+
+- 封板与测试报告：`docs/RELEASE-1.0-FREEZE.md`、`docs/RELEASE-2.0-FREEZE.md`
+- 版本历史：`CHANGELOG.md`
+- 《三体》为刘慈欣所著科幻作品，本项目为爱好者向体验沙盒，与官方无关。
+
+---
 
 ## License
 
-MIT. 见 [LICENSE](LICENSE)。
+MIT. 详见 [LICENSE](LICENSE)。
